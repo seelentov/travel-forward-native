@@ -1,8 +1,9 @@
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './Catalog.stylesheet';
+import { ICatalogItem } from '../../types/catalog';
 
 
-export default function CatalogItem({ item }: { item: any }) {
+export default function CatalogItem({ item }: { item: ICatalogItem }) {
   return (
     <View style={styles.item}>
       <ImageBackground style={styles.itemBackground} source={{ uri: item.imageUrl }}>
