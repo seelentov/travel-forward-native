@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   main: {
-    backgroundColor: 'rgb(30, 31, 37)',
+    backgroundColor: 'rgb(251, 251, 251)',
     width: '100%',
     paddingLeft: 10,
     paddingRight: 10,
@@ -13,18 +13,35 @@ export const styles = StyleSheet.create({
     gap: 20
   },
   title: {
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   desc: {
-    color: '#ffffff',
+    color: '#000000',
     fontWeight: 'normal',
     fontSize: 16,
     marginBottom: 20,
   },
-  buttonMain: {
+  list: {
+    height: 270,
+  },
+  image: {
+    height: 150,
+    borderRadius: 30,
+  },
+  item: {
+    backgroundColor: '#ffffff',
+    width: '100%',
+    padding: 15,
+    borderRadius: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
+    marginBottom: 30
+  },
+  button: {
     backgroundColor: "#e24412",
     borderRadius: 15,
     paddingTop: 10,
@@ -36,6 +53,50 @@ export const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'white',
     textAlign: 'center'
+  },
+  bottom: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  user: {
+    width: '100%',
+    display: 'flex',
+    gap: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userImage: {
+    width: 50,
+    height: 50
+  },
+  userName: {
+    fontWeight: '700'
+  },
+  rating: {
+    display: 'flex',
+    gap: 5,
+    flexDirection: "row"
+  },
+  date: {
+    color: 'rgb(100, 100, 100)',
+    fontSize: 12
+  },
+  itemButton: {
+  },
+  itemButtonText: {
+    color: '#e24412',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  buttonMain: {
+    backgroundColor: "#e24412",
+    borderRadius: 15,
+    paddingTop: 10,
+    paddingBottom: 15,
+    width: '100%'
   },
   centeredView: {
     flex: 1,
@@ -58,11 +119,6 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
@@ -94,5 +150,16 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 20
+  },
+  textarea:{
+    backgroundColor: "white",
+    borderRadius: 15,
+    padding: 5,
+    width: '100%',
+    height: 100,
+    borderColor: 'black',
+    borderWidth: 1,
+    marginBottom: 15,
+    fontSize: 16
   }
 });

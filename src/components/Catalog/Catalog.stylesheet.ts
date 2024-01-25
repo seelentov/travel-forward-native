@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     height: 300,
     borderRadius: 30,
     overflow: 'hidden',
+    marginBottom: 30
   },
   itemTitle:{
     color: '#ffffff',

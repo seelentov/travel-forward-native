@@ -37,7 +37,8 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 15,
     paddingLeft: 20,
-    width: 200
+    width: 200,
+    marginTop: 'auto'
   },
   buttonText:{
     fontSize: 15,

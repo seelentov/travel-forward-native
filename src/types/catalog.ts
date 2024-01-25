@@ -3,4 +3,5 @@ export interface ICatalogItem {
   name: string,
   href?: string,
   imageUrl: string
+  text: string
 }

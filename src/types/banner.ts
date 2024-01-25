@@ -3,5 +3,4 @@ export interface IBanner {
   title: string,
   desc: string,
   ImageBackground: string,
-  href?: string
 }

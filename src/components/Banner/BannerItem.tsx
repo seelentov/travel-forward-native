@@ -1,8 +1,19 @@
+import { PropsWithChildren } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { IBanner } from '../../types/banner';
 import { styles } from './Banner.stylesheet';
 
-export default function BannerItem({ banner }: { banner: IBanner }) {
+type IBannerItemProps = PropsWithChildren<{
+  banner: IBanner
+  navigation: any
+}>
+
+export default function BannerItem({ banner, navigation }: IBannerItemProps) {
+
+  const switchScreen = () => {
+    navigation.navigate('Catalog')
+  }
+
   return (
     <ImageBackground source={{ uri: banner.ImageBackground }} style={styles.background}>
       <View style={styles.item}>
@@ -12,7 +23,7 @@ export default function BannerItem({ banner }: { banner: IBanner }) {
         <Text style={styles.desc}>
           {banner.desc}
         </Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => switchScreen()}>
           <Text style={styles.buttonText}>Узнать подробнее</Text>
         </TouchableOpacity>
       </View>

@@ -1,9 +1,14 @@
+import { PropsWithChildren } from 'react';
 import { Text, View } from 'react-native';
 import { SvgUri } from 'react-native-svg';
-import { styles } from './Advantages.stylesheet';
 import { IAdvantage } from '../../types/advantage';
+import { styles } from './Advantages.stylesheet';
 
-export default function AdvantagesItem({ advantage }: { advantage: IAdvantage }) {
+type IAdvantagesItemProps = PropsWithChildren<{
+  advantage: IAdvantage
+}>
+
+export default function AdvantagesItem({ advantage }: IAdvantagesItemProps) {
 
   return (
     <View style={styles.item}>

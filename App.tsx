@@ -1,34 +1,77 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet } from 'react-native';
-import About from './src/components/About/About';
-import Advantages from './src/components/Advantages/Advantages';
-import Banner from './src/components/Banner/Banner';
-import CTA from './src/components/CTA/CTA';
-import Catalog from './src/components/Catalog/Catalog';
-import Gallery from './src/components/Gallery/Gallery';
-import { advantages } from './src/test/data/advantages';
-import { banners } from './src/test/data/banner';
-import { catalog } from './src/test/data/catalog';
-import { images } from './src/test/data/images';
-import { stages } from './src/test/data/stages';
+import AboutScreen from './src/screens/AboutScreen';
+import CatalogScreen from './src/screens/CatalogScreen';
+import FAQScreen from './src/screens/FAQScreen';
+import MainScreen from './src/screens/MainScreen';
+import NewsScreen from './src/screens/NewsScreen';
+import ReviewsScreen from './src/screens/ReviewsScreen';
+import ArticleScreen from './src/screens/ArticleScreen';
+
+export type RootStackParamList = {
+  Main: undefined;
+  Article: {
+    title: string;
+    image: string;
+    text: string
+  };
+  News: undefined,
+  Reviews: undefined
+  Catalog: undefined
+  FAQ: undefined
+  About: undefined
+};
+
+const defaultOptions = {
+  headerShown: false
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <ScrollView>
-      <Banner banners={banners} />
-      <Advantages advantages={advantages} title={'Почему мы?'} />
-      <Catalog catalog={catalog} />
-      
-      <CTA />
-      <Gallery images={images} />
-      <Advantages advantages={stages} title={'Как забронировать автобусный экскурсионный тур'} />
-      <About />
-
-      <CTA />
-      <StatusBar style="auto" />
-    </ScrollView>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Main"
+            component={MainScreen}
+            options={{ ...defaultOptions }}
+          />
+          <Stack.Screen
+            name="News"
+            component={NewsScreen}
+            options={{ ...defaultOptions }}
+          />
+          <Stack.Screen
+            name="Reviews"
+            component={ReviewsScreen}
+            options={{ ...defaultOptions }}
+          />
+          <Stack.Screen
+            name="Catalog"
+            component={CatalogScreen}
+            options={{ ...defaultOptions }}
+          />
+          <Stack.Screen
+            name="FAQ"
+            component={FAQScreen}
+            options={{ ...defaultOptions }}
+          />
+          <Stack.Screen
+            name="About"
+            component={AboutScreen}
+            options={{ ...defaultOptions }}
+          />
+          <Stack.Screen
+            name="Article"
+            component={ArticleScreen}
+            options={{ ...defaultOptions }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <StatusBar style="dark" />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-});
