@@ -1,6 +1,6 @@
 export interface IAdvantage {
-  _id: string,
+  MIGX_id: string,
   title: string,
-  desc: string,
-  iconUrl: string
+  text: string,
+  image: string
 }

@@ -1,40 +1,47 @@
-import type { PropsWithChildren } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { IReview } from '../../types/review';
-import { getDDMMYYYYFromDate } from '../../utils/date/getDDMMYYYYFromDate';
+
+import { Dispatch, SetStateAction, useState } from 'react';
 import Star from '../Icons/Star';
 import { styles } from './Reviews.stylesheet';
 
 
-type IReviewItemProps = PropsWithChildren<{
+type IReviewItemProps = {
   review: IReview
-}>
+}
 
 export default function ReviewItem({ review }: IReviewItemProps) {
+
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+
   return (
-    <View style={styles.item}>
-      <View style={styles.user}>
-        <Image style={styles.userImage} source={{ uri: review.person.imageUrl }} />
-        <Text style={styles.userName}>
-          {review.person.name}
+    <>
+      <ReviewItemMore review={review} setIsModalVisible={setIsModalVisible} isModalVisible={isModalVisible} />
+
+      <View style={styles.item}>
+        <View style={styles.user}>
+          <Image style={styles.userImage} source={{ uri: review.avatar }} />
+          <Text style={styles.userName}>
+            {review.pagetitle}
+          </Text>
+        </View>
+        <Text numberOfLines={3}>
+          {review.review_text}
         </Text>
+        <TouchableOpacity style={styles.itemButton} onPress={() => setIsModalVisible(true)}>
+          <Text style={styles.itemButtonText}>Весь отзыв</Text>
+        </TouchableOpacity>
+        <View style={styles.bottom}>
+          <Text style={styles.date}>{review.publishedon}</Text>
+          <ReviewItemStars rating={review.rating} />
+        </View>
       </View>
-      <Text numberOfLines={3}>
-        {review.text}
-      </Text>
-      <TouchableOpacity style={styles.itemButton}>
-        <Text style={styles.itemButtonText}>Весь отзыв</Text>
-      </TouchableOpacity>
-      <View style={styles.bottom}>
-        <Text style={styles.date}>{getDDMMYYYYFromDate(review.createdAt)}</Text>
-        <ReviewItemStars rating={review.rating} />
-      </View>
-    </View>
+    </>
   );
 }
 
 
-const ReviewItemStars = ({ rating }: PropsWithChildren<{ rating: number }>) => {
+const ReviewItemStars = ({ rating }: { rating: number }) => {
 
   const fillStar = Array.from({ length: rating }, () => <Star />);
 
@@ -42,5 +49,44 @@ const ReviewItemStars = ({ rating }: PropsWithChildren<{ rating: number }>) => {
     <View style={styles.rating}>
       {fillStar.map((image) => image)}
     </View>
+  )
+}
+
+
+
+const ReviewItemMore = ({ review, setIsModalVisible, isModalVisible }: { review: IReview, isModalVisible: boolean, setIsModalVisible: Dispatch<SetStateAction<boolean>> }) => {
+
+
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isModalVisible}
+      onRequestClose={() => {
+        setIsModalVisible(!isModalVisible);
+      }}>
+      <View style={styles.centeredView} >
+        <View style={styles.modalViewReview}>
+          <TouchableOpacity style={styles.buttonCloseViewReview} onPress={() => setIsModalVisible(!isModalVisible)}>
+            <Text style={styles.buttonClose}>Закрыть</Text>
+          </TouchableOpacity>
+          <View style={styles.item}>
+            <View style={styles.user}>
+              <Image style={styles.userImage} source={{ uri: review.avatar }} />
+              <Text style={styles.userName}>
+                {review.pagetitle}
+              </Text>
+            </View>
+            <ScrollView>
+              <Text>{review.review_text}</Text>
+            </ScrollView>
+            <View style={styles.bottom}>
+              <Text style={styles.date}>{review.publishedon}</Text>
+              <ReviewItemStars rating={review.rating} />
+            </View>
+          </View>
+        </View>
+      </View>
+    </Modal>
   )
 }

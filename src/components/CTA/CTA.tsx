@@ -1,5 +1,6 @@
 import { PropsWithChildren, useState } from 'react';
-import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { sendMail } from '../../utils/form/sendMail';
 import { styles } from './CTA.stylesheet';
 
 type ICTAProps = PropsWithChildren<{
@@ -8,12 +9,27 @@ type ICTAProps = PropsWithChildren<{
 
 export default function CTA({ formTitle = 'Основная форма' }: ICTAProps) {
   const [number, setNumber] = useState<string>('')
+  const [name, setName] = useState<string>('')
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
   const throwMessage = () => {
-    
-    setIsModalVisible(!isModalVisible)
+
+    if (!number) {
+      return Alert.alert('', 'Введите телефон для отправки заявки')
+    }
+
+    const body = /*html*/`
+      <h3>Заявка из мобильного приложения</h3>
+      <span><strong>Страница заявки:</strong> ${formTitle}</span><br />
+      <span><strong>Имя:</strong> ${name}</span><br />
+      <span><strong>Номер телефона:</strong> ${number}</span><br />
+    `
+
+    sendMail(formTitle, body)
+    setIsModalVisible(false)
   }
+
+
 
   return (
     <View style={styles.main}>
@@ -30,6 +46,12 @@ export default function CTA({ formTitle = 'Основная форма' }: ICTAP
               <Text style={styles.buttonClose}>Закрыть</Text>
             </TouchableOpacity>
             <Text style={styles.modalText}>Введите номер телефона, нажмите на кнопку ниже и мы свяжемся с Вами в ближайшее время!</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setName}
+              value={name}
+              placeholder='Владимир'
+            />
             <TextInput
               style={styles.input}
               onChangeText={setNumber}

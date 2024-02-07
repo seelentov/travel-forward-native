@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import { IAdvantage } from '../../types/advantage';
 import { styles } from './Advantages.stylesheet';
+import { BASE_URL } from '../../store/api/api';
 
 type IAdvantagesItemProps = PropsWithChildren<{
   advantage: IAdvantage
@@ -15,11 +16,11 @@ export default function AdvantagesItem({ advantage }: IAdvantagesItemProps) {
       <SvgUri
         width="60"
         height="60"
-        uri={advantage.iconUrl}
+        uri={`${BASE_URL}content/${advantage.image}`}
       />
       <View style={styles.text}>
         <Text style={styles.title}>{advantage.title}</Text>
-        <Text style={styles.desc}>{advantage.desc}</Text>
+        <Text style={styles.desc}>{advantage.text}</Text>
       </View>
     </View>
   );

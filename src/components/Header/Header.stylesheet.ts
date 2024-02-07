@@ -3,12 +3,11 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   header: {
     width: '100%',
-    height: 90,
+    height: 60,
     backgroundColor: 'white',
     alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 30,
     justifyContent: 'space-between',
     display: 'flex',
     flexDirection: 'row',
@@ -17,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   menu: {
     position: 'absolute',
-    top: 90,
+    top: 60,
     left: 0,
     backgroundColor: 'rgb(30, 31, 37)',
     width: '100%',

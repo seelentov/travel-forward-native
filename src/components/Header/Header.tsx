@@ -1,17 +1,22 @@
-import { useState, type PropsWithChildren } from 'react';
-import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Animated, Easing, Linking, Text, TouchableOpacity, View } from 'react-native';
+import { useGetContactsQuery } from '../../store/api/contacts.api';
 import Close from '../Icons/Close';
 import MainIcon from '../Icons/MainIcon';
 import PhoneWhite from '../Icons/PhoneWhite';
 import { styles } from './Header.stylesheet';
 import config from './header.config';
+import Burger from '../Icons/Burger';
 
-type IHeaderProps = PropsWithChildren<{
+type IHeaderProps = {
   navigation: any
-}>
+}
 
 export default function Header({ navigation }: IHeaderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const menuAnimation = new Animated.Value(0);
+
+  const { data, isLoading, error } = useGetContactsQuery()
 
   const switchScreen = (screen: string) => {
     navigation.navigate(screen)
@@ -19,8 +24,22 @@ export default function Header({ navigation }: IHeaderProps) {
   }
 
   const call = () => {
-    Linking.openURL('tel:+79517822401');
+    Linking.openURL(`tel:${data?.object?.number}`);
   }
+
+  useEffect(() => {
+    Animated.timing(menuAnimation, {
+      toValue: isOpen ? 1 : 0,
+      duration: 300,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: false,
+    }).start();
+  }, [isOpen]);
+
+  const menuTranslateX = menuAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-250, 0]
+  });
 
   return (
     <>
@@ -28,18 +47,16 @@ export default function Header({ navigation }: IHeaderProps) {
         <TouchableOpacity style={styles.burderButton} onPress={() => setIsOpen(prev => !prev)}>
           {isOpen ?
             <Close />
-            : <>
-              <View style={styles.burderButtonLine}></View>
-              <View style={styles.burderButtonLine}></View>
-              <View style={styles.burderButtonLine}></View>
-            </>}
+            :
+            <Burger />
+          }
         </TouchableOpacity>
         <MainIcon />
         <TouchableOpacity style={styles.call} onPress={call}>
           <PhoneWhite />
         </TouchableOpacity>
       </View>
-      <View style={isOpen ? styles.menu : styles.menuClose}>
+      <Animated.View style={[isOpen ? [styles.menu, { transform: [{ translateX: menuTranslateX }] }] : styles.menuClose]}>
         {config.map(({ name, page, id }) =>
           <>
             <TouchableOpacity key={id} style={styles.menuItem} onPress={() => switchScreen(page)}>
@@ -47,7 +64,7 @@ export default function Header({ navigation }: IHeaderProps) {
             </TouchableOpacity>
             <View style={styles.hr}></View>
           </>)}
-      </View>
+      </Animated.View>
     </>
   );
 }

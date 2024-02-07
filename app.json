@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "travel-forward-native",
+    "name": "Travel Forward",
     "slug": "travel-forward-native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_new.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_new.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon_new.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.seelentov.travelforwardnative"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon_new.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "18de4741-fedf-49e6-8242-c84f9f550ff3"
+      }
     }
   }
 }

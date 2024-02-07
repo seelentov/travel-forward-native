@@ -1,6 +1,6 @@
 export interface IBanner {
-  _id: string,
+  MIGX_id: string,
   title: string,
-  desc: string,
-  ImageBackground: string,
+  subtitle: string,
+  background: string,
 }

@@ -1,54 +1,60 @@
-import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Alert, Linking, Text, TouchableOpacity, View } from 'react-native';
+import { SvgUri } from 'react-native-svg';
+import { BASE_URL } from '../../store/api/api';
+import { useGetContactsQuery } from '../../store/api/contacts.api';
+import { ContactsSocial } from '../../types/contacts';
 import Location from '../Icons/Location';
 import Phone from '../Icons/Phone';
-import Telegram from '../Icons/Telegram';
 import Time from '../Icons/Time';
-import VKontakte from '../Icons/VKontakte';
-import WhatsApp from '../Icons/WhatsApp';
+import Loading from '../Loading/BannerLoading/BannerLoading';
 import { styles } from './Contacts.stylesheet';
 
 
 export default function Contacts() {
 
-  const call = () => {
-    Linking.openURL('tel:+79517822401');
+  const { data, isLoading, error } = useGetContactsQuery()
+
+  const Social = ({ socialItems }: { socialItems: ContactsSocial[] }) => {
+    return (<View style={styles.social}>
+      {socialItems.map((social, index) => <TouchableOpacity key={index} onPress={() => Linking.openURL(social.link)}><SvgUri
+        width="40"
+        height="40"
+        uri={`${BASE_URL}content/${social.icon}`}
+      /></TouchableOpacity>
+      )}
+    </View>)
   }
 
-  const openVK = () => {
-    Linking.openURL('https://vk.com/discount.tour_online');
+  if (error) {
+    Alert.alert('', 'Ошибка при получении контактной информации')
   }
 
-  const openTelegram = () => {
-    Linking.openURL('https://t.me/Lavrov_alx');
+  if (isLoading) {
+    return <Loading />
   }
 
-  const openWhatsApp = () => {
-    Linking.openURL('https://api.whatsapp.com/send?phone=79517822401');
-  }
-
-  return (
-    <View style={styles.main}>
-      <Text style={styles.title}>Контактная информация</Text>
-      <View style={styles.block}>
-        <Location />
-        <Text style={styles.blockText}>г. Москва, ул. Космонавтов, д. 6</Text>
-      </View>
-      <TouchableOpacity style={styles.block} onPress={call}>
-        <Phone />
-        <Text style={styles.blockText}>+7 (951) 782-24-01</Text>
-      </TouchableOpacity>
-      <View style={styles.block}>
-        <Time />
-        <Text style={styles.blockText}>Пн-Пт с 9:00 до 18:00</Text>
-      </View>
-      <View style={styles.blockSocial}>
-        <View style={styles.social}>
-          <TouchableOpacity onPress={openVK}><VKontakte /></TouchableOpacity>
-          <TouchableOpacity onPress={openTelegram}><Telegram /></TouchableOpacity>
-          <TouchableOpacity onPress={openWhatsApp}><WhatsApp /></TouchableOpacity>
+  if (!isLoading && data) {
+    return (
+      <View style={styles.main}>
+        <Text style={styles.title}>Контактная информация</Text>
+        <View style={styles.block}>
+          <Location />
+          <Text style={styles.blockText}>{data?.object?.address}</Text>
+        </View>
+        <TouchableOpacity style={styles.block} onPress={() => Linking.openURL(`tel:${data?.object?.number}`)}>
+          <Phone />
+          <Text style={styles.blockText}>{data?.object?.number}</Text>
+        </TouchableOpacity>
+        <View style={styles.block}>
+          <Time />
+          <Text style={styles.blockText}>{data?.object?.worktime}</Text>
+        </View>
+        <View style={styles.blockSocial}>
+          <Social socialItems={data?.object?.social} />
         </View>
       </View>
+    );
+  }
 
-    </View>
-  );
 }

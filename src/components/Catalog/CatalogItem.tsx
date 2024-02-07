@@ -12,18 +12,18 @@ export default function CatalogItem({ item, navigation }: ICatalogItemProps) {
 
   const switchScreen = () => {
     navigation.navigate('Article', {
-      title:item.name,
-      image:item.imageUrl,
+      title:item.longtitle,
+      image:item.image,
       text:item.text
     })
   }
 
   return (
     <View style={styles.item}>
-      <ImageBackground style={styles.itemBackground} source={{ uri: item.imageUrl }}>
+      <ImageBackground style={styles.itemBackground} source={{ uri: item.image }}>
         <View style={styles.content}>
           <Text style={styles.itemTitle}>
-            {item.name}
+            {item.pagetitle}
           </Text>
           <TouchableOpacity style={styles.itemButton} onPress={()=>switchScreen()}>
             <Text style={styles.buttonText}>Забронировать</Text>

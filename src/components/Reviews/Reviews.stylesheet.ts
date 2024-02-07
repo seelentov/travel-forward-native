@@ -70,7 +70,8 @@ export const styles = StyleSheet.create({
   },
   userImage: {
     width: 50,
-    height: 50
+    height: 50,
+    borderRadius: 50 / 2
   },
   userName: {
     fontWeight: '700'
@@ -120,6 +121,27 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  modalViewReview: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    width: '100%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    maxHeight: 500
+  },
+  buttonCloseViewReview: {
+    width: '100%',
+    marginLeft: 20,
+    marginTop: 20,
+    marginBottom: 10,
+  },
   buttonOpen: {
     backgroundColor: '#F194FF',
   },
@@ -127,7 +149,7 @@ export const styles = StyleSheet.create({
     color: '#e24412',
     textAlign: 'left'
   },
-  buttonCloseView:{
+  buttonCloseView: {
     width: '100%',
     marginBottom: 15,
   },
@@ -140,7 +162,7 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'left',
   },
-  input:{
+  input: {
     backgroundColor: "white",
     borderRadius: 15,
     padding: 5,
@@ -151,12 +173,12 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20
   },
-  textarea:{
+  textarea: {
+    textAlignVertical: 'top',
     backgroundColor: "white",
     borderRadius: 15,
     padding: 5,
     width: '100%',
-    height: 100,
     borderColor: 'black',
     borderWidth: 1,
     marginBottom: 15,

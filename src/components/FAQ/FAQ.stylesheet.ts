@@ -16,12 +16,10 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   item:{
-    height: 50,
     overflow: 'hidden',
     marginBottom: 20
   },
   itemActive:{
-    height: 'auto',
     overflow: 'hidden',
     marginBottom: 20
   },

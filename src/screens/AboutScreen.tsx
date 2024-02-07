@@ -16,7 +16,7 @@ export default function AboutScreen({ navigation, route }: IAboutScreenProps) {
       <Header navigation={navigation} />
       <ScrollView>
         <About />
-        <CTA />
+        <CTA formTitle='О компании'/>
         <Contacts />
       </ScrollView>
     </>

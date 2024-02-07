@@ -1,9 +1,10 @@
 import { IUser } from "./user"
 
 export interface IReview {
-  _id: string
-  person: IUser,
-  createdAt: Date,
+  id: string
+  pagetitle: string,
+  avatar: string,
+  publishedon: string,
   rating: number,
-  text: string
+  review_text: string
 }

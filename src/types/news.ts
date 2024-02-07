@@ -1,9 +1,9 @@
 export interface INewsItem {
-  _id: string,
-  title: string,
-  imageUrl: string,
-  desc: string,
-  createdAt: Date,
+  id: 131,
+  pagetitle: string,
+  description: string,
+  image: string,
   views: number,
+  createdon: string,
   text: string
 }
