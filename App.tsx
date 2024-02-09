@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
+import { NativeModules, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import AboutScreen from './src/screens/AboutScreen';
@@ -11,6 +12,7 @@ import MainScreen from './src/screens/MainScreen';
 import NewsScreen from './src/screens/NewsScreen';
 import ReviewsScreen from './src/screens/ReviewsScreen';
 import { store } from './src/store/store';
+const { StatusBarManager } = NativeModules;
 
 export type RootStackParamList = {
   Main: undefined;
@@ -36,10 +38,13 @@ export default function App() {
   return (
 
     <Provider store={store}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <SafeAreaView style={{
+        flex: 1,
+        backgroundColor: "#fff",
+        paddingTop: Platform.OS !== 'android' ? StatusBarManager.HEIGHT : 0,
+      }}>
         <NavigationContainer>
           <Stack.Navigator>
-
             <Stack.Screen
               name="Main"
               component={MainScreen}

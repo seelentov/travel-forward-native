@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { RootStackParamList } from '../../App';
 import About from '../components/About/About';
@@ -12,15 +13,17 @@ import Gallery from '../components/Gallery/Gallery';
 import Header from '../components/Header/Header';
 import News from '../components/News/News';
 import Reviews from '../components/Reviews/Reviews';
+import { useActions } from '../hooks/useActions';
+import { useStoreBy } from '../hooks/useStoreBy';
 import { useGetAdvantagesQuery } from '../store/api/advantages.api';
 import { useGetBannersQuery } from '../store/api/banners.api';
 import { useGetCatalogQuery } from '../store/api/catalog.api';
 import { useGetFAQQuery } from '../store/api/faq.api';
+import { useGetGalleryQuery } from '../store/api/gallery.api';
 import { useGetNewsQuery } from '../store/api/news.api';
 import { useGetReviewsQuery } from '../store/api/reviews.api';
 import { useGetStagesQuery } from '../store/api/stages.api';
-import { images } from '../test/data/images';
-import { useGetGalleryQuery } from '../store/api/gallery.api';
+import { useGetTextQuery } from '../store/api/text.api';
 
 type IMainScreenProps = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
@@ -42,16 +45,28 @@ export default function MainScreen({ navigation }: IMainScreenProps) {
 
   const { data: dataGallery, isLoading: isLoadingGallery, error: errorGallery } = useGetGalleryQuery()
 
+  const { data: dataText, isLoading: isLoadingText, error: errorText } = useGetTextQuery()
+  const { setText } = useActions()
+
+  useEffect(() => {
+    if (dataText) {
+      setText(dataText.object)
+    }
+  }, [dataText])
+
+  const { data } = useStoreBy('text')
+
+
   return (
     <>
       <Header navigation={navigation} />
       <ScrollView>
         <Banner banners={dataBanners?.object} navigation={navigation} loading={isLoadingBanners} error={!!errorBanners} />
-        <Advantages advantages={dataAdvantages?.object} title={'Почему мы?'} loading={isLoadingAdvantages} error={!!errorAdvantages} />
+        <Advantages advantages={dataAdvantages?.object} title={data?.advantages_1_title} loading={isLoadingAdvantages} error={!!errorAdvantages} />
         <Catalog catalog={dataCatalog?.object} navigation={navigation} loading={isLoadingCatalog} error={!!errorCatalog} />
         <CTA />
-        <Gallery images={dataGallery?.object} loading={isLoadingGallery} error={!!errorGallery}/>
-        <Advantages advantages={dataStages?.object} loading={isLoadingStages} error={!!errorStages} title={'Как забронировать автобусный экскурсионный тур'} />
+        <Gallery images={dataGallery?.object} loading={isLoadingGallery} error={!!errorGallery} />
+        <Advantages advantages={dataStages?.object} loading={isLoadingStages} error={!!errorStages} title={data?.stages_title} />
         <About />
         <FAQ faq={dataFAQ?.object} loading={isLoadingFAQ} error={!!errorFAQ} />
         <Reviews reviews={dataReviews?.object} loading={isLoadingReviews} error={!!errorReviews} />

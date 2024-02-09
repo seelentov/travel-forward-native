@@ -12,7 +12,7 @@ export type Response<T> = {
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['resources','catalog', 'reviews', 'banners', 'advantages', 'stages', 'about', 'faq', 'news', 'contacts', 'gallery'],
+  tagTypes: ['resources','catalog', 'reviews', 'banners', 'advantages', 'stages', 'about', 'faq', 'news', 'contacts', 'gallery', 'text'],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
   }),

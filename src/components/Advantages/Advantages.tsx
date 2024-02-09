@@ -1,13 +1,13 @@
 import { PropsWithChildren } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { IAdvantage } from '../../types/advantage';
+import Loading from '../Loading/BannerLoading/BannerLoading';
 import { styles } from './Advantages.stylesheet';
 import AdvantagesItem from './AdvantagesItem';
-import Loading from '../Loading/BannerLoading/BannerLoading';
 
 type IAdvantagesProps = PropsWithChildren<{
   advantages?: IAdvantage[],
-  title: string,
+  title?: string,
   loading: boolean,
   error: boolean
 }>
@@ -15,7 +15,7 @@ type IAdvantagesProps = PropsWithChildren<{
 export default function Advantages({ error, loading, advantages, title }: IAdvantagesProps) {
 
   if (error) {
-    Alert.alert('','Ошибка при получении преимуществ')
+    Alert.alert('', 'Ошибка при получении преимуществ')
   }
 
   const Items = () => {
@@ -32,7 +32,7 @@ export default function Advantages({ error, loading, advantages, title }: IAdvan
 
   return (
     <View style={styles.main}>
-      <Text style={styles.mainTitle}>{title}</Text>
+      <Text style={styles.mainTitle}>{title || ''}</Text>
       <Items />
     </View>
   );

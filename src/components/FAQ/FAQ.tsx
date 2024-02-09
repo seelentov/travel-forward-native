@@ -1,9 +1,10 @@
 import { PropsWithChildren } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { IFAQ } from '../../types/faq';
+import Loading from '../Loading/BannerLoading/BannerLoading';
 import { styles } from './FAQ.stylesheet';
 import FAQItem from './FAQItem';
-import Loading from '../Loading/BannerLoading/BannerLoading';
+import { useStoreBy } from '../../hooks/useStoreBy';
 
 type IFAQProps = PropsWithChildren<{
   faq?: IFAQ[]
@@ -12,8 +13,10 @@ type IFAQProps = PropsWithChildren<{
 }>
 
 export default function FAQ({ faq, error, loading }: IFAQProps) {
+  const { data } = useStoreBy('text')
+
   if (error) {
-    Alert.alert('','Ошибка при получении списка частых вопросов')
+    Alert.alert('', 'Ошибка при получении списка частых вопросов')
   }
 
   const Items = () => {

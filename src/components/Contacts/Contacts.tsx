@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, Linking, Text, TouchableOpacity, View } from 'react-native';
 import { SvgUri } from 'react-native-svg';
+import { useStoreBy } from '../../hooks/useStoreBy';
 import { BASE_URL } from '../../store/api/api';
 import { useGetContactsQuery } from '../../store/api/contacts.api';
 import { ContactsSocial } from '../../types/contacts';
@@ -14,6 +15,8 @@ import { styles } from './Contacts.stylesheet';
 export default function Contacts() {
 
   const { data, isLoading, error } = useGetContactsQuery()
+
+  const { data: dataText } = useStoreBy('text')
 
   const Social = ({ socialItems }: { socialItems: ContactsSocial[] }) => {
     return (<View style={styles.social}>
@@ -37,7 +40,7 @@ export default function Contacts() {
   if (!isLoading && data) {
     return (
       <View style={styles.main}>
-        <Text style={styles.title}>Контактная информация</Text>
+        <Text style={styles.title}>{dataText?.contacts_title}</Text>
         <View style={styles.block}>
           <Location />
           <Text style={styles.blockText}>{data?.object?.address}</Text>

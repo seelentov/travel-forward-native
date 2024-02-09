@@ -2,11 +2,12 @@ import { PropsWithChildren } from 'react';
 import { Alert, Text, View } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { ICatalogItem } from '../../types/catalog';
+import Loading from '../Loading/BannerLoading/BannerLoading';
 import ActiveDot from '../Swiper/ActiveDot';
 import Dot from '../Swiper/Dot';
 import { styles } from './Catalog.stylesheet';
 import CatalogItem from './CatalogItem';
-import Loading from '../Loading/BannerLoading/BannerLoading';
+import { useStoreBy } from '../../hooks/useStoreBy';
 
 type ICatalogProps = PropsWithChildren<{
   catalog?: ICatalogItem[]
@@ -19,8 +20,10 @@ type ICatalogProps = PropsWithChildren<{
 
 export default function Catalog({ error, catalog, loading, navigation, display = 'swiper' }: ICatalogProps) {
 
+  const { data } = useStoreBy('text')
+
   if (error) {
-    Alert.alert('','Ошибка при получении списка туров')
+    Alert.alert('', 'Ошибка при получении списка туров')
   }
 
   const Items = () => {
@@ -50,8 +53,8 @@ export default function Catalog({ error, catalog, loading, navigation, display =
 
   return (
     <View style={styles.main}>
-      <Text style={styles.title}>Наши туры</Text>
-      <Text style={styles.desc}>На данный момент туристических предложений с путешествиями по России великое множество. И это может только радовать.</Text>
+      <Text style={styles.title}>{data?.catalog_title}</Text>
+      <Text style={styles.desc}>{data?.catalog_text}</Text>
       <Items />
     </View>
   )

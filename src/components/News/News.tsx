@@ -1,12 +1,13 @@
 import type { PropsWithChildren } from 'react';
 import { Alert, Text, View } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { useStoreBy } from '../../hooks/useStoreBy';
 import { INewsItem } from '../../types/news';
+import Loading from '../Loading/BannerLoading/BannerLoading';
 import ActiveDot from '../Swiper/ActiveDot';
 import Dot from '../Swiper/Dot';
 import { styles } from './News.stylesheet';
 import NewsItem from './NewsItem';
-import Loading from '../Loading/BannerLoading/BannerLoading';
 
 type INewsProps = PropsWithChildren<{
   news?: INewsItem[]
@@ -18,8 +19,10 @@ type INewsProps = PropsWithChildren<{
 
 export default function News({ error, loading, navigation, news, display = 'swiper' }: INewsProps) {
 
+  const { data } = useStoreBy('text')
+
   if (error) {
-    Alert.alert('','Ошибка при получении новостей')
+    Alert.alert('', 'Ошибка при получении новостей')
   }
 
   const Items = () => {
@@ -45,7 +48,7 @@ export default function News({ error, loading, navigation, news, display = 'swip
 
   return (
     <View style={styles.main}>
-      <Text style={styles.title}>Новости</Text>
+      <Text style={styles.title}>{data?.news_title}</Text>
       <Items />
     </View>
   );

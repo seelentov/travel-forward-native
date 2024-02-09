@@ -2,6 +2,7 @@ import type { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 import React, { useState } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { useStoreBy } from '../../hooks/useStoreBy';
 import { IReview } from '../../types/review';
 import { sendMail } from '../../utils/form/sendMail';
 import Loading from '../Loading/BannerLoading/BannerLoading';
@@ -18,6 +19,8 @@ type IReviewsProps = PropsWithChildren<{
 }>
 
 export default function Reviews({ error, loading, reviews, display = 'swiper' }: IReviewsProps) {
+
+  const { data } = useStoreBy('text')
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
@@ -51,10 +54,10 @@ export default function Reviews({ error, loading, reviews, display = 'swiper' }:
     <><ReviewsModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
       <View style={styles.main}>
         <Text style={styles.title}>
-          Отзывы клиентов
+          {data?.reviews_title}
         </Text>
         <Text style={styles.desc}>
-          Хороший отзыв – как комплимент, его нельзя купить за деньги, выпросить или обменять. Но его точно можно заслужить! Именно поэтому нам так важно ваше мнение. Ваша субъективная оценка — неоценимый мотиватор движения вперед!
+          {data?.reviews_text}
         </Text>
         <TouchableOpacity style={styles.button} onPress={() => setIsModalVisible(!isModalVisible)}>
           <Text style={styles.buttonText}>Оставить отзыв</Text>

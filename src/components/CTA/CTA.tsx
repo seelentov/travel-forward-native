@@ -2,6 +2,7 @@ import { PropsWithChildren, useState } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { sendMail } from '../../utils/form/sendMail';
 import { styles } from './CTA.stylesheet';
+import { useStoreBy } from '../../hooks/useStoreBy';
 
 type ICTAProps = PropsWithChildren<{
   formTitle?: string
@@ -11,6 +12,8 @@ export default function CTA({ formTitle = 'Основная форма' }: ICTAP
   const [number, setNumber] = useState<string>('')
   const [name, setName] = useState<string>('')
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+
+  const { data } = useStoreBy('text')
 
   const throwMessage = () => {
 
@@ -66,7 +69,7 @@ export default function CTA({ formTitle = 'Основная форма' }: ICTAP
         </View>
       </Modal>
       <Text style={styles.title}>
-        Хотите узнать подробнее?
+        {data?.cta}
       </Text>
       <TouchableOpacity style={styles.buttonMain} onPress={() => setIsModalVisible(!isModalVisible)}>
         <Text style={styles.buttonText}>Заказать звонок</Text>
