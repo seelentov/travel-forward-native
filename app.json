@@ -2,7 +2,7 @@
   "expo": {
     "name": "Travel Forward",
     "slug": "travel-forward-native",
-    "version": "1.0.0",
+    "version": "0.5.5",
     "orientation": "portrait",
     "icon": "./assets/icon_new.png",
     "userInterfaceStyle": "light",
@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/adaptive-icon_new.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.seelentov.travelforwardnative"
+      "package": "com.seelentov.travelforwardnative",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon_new.png"

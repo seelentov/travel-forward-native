@@ -25,7 +25,7 @@ export default function ReviewItem({ review }: IReviewItemProps) {
             {review.pagetitle}
           </Text>
         </View>
-        <Text numberOfLines={3}>
+        <Text numberOfLines={1}>
           {review.review_text}
         </Text>
         <TouchableOpacity style={styles.itemButton} onPress={() => setIsModalVisible(true)}>
